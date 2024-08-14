@@ -77,13 +77,15 @@ def add_pigeon():
         db.close()
         return jsonify({'error': 'Pigeon with this name already exists'}), 400
     
-@app.route('/api/get-pigeons-for-sale', methods=['GET'])
+@app.route('/api/get-pigeons-for-sale', methods=['GET', 'POST'])
 def get_pigeons_for_sale():
     db = Database('pigeon_tycoon.db')
     db.connect()
-    pigeons = db.get_pigeons()
+    pigeons = db.get_pigeons_for_sale()
+    print(pigeons)
     db.close()
     pigeon_list = [{'id': row[0], 'name': row[1], 'speed': row[2], 'stamina': row[3]} for row in pigeons]
+    print(pigeon_list)
     return jsonify(pigeon_list)
 
 @app.route('/api/get-pigeons', methods=['GET'])
