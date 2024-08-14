@@ -22,6 +22,22 @@ def get_game_data():
     }
     return jsonify(game_data)
 
+@app.route('/api/add-pigeon', methods=['GET', 'POST'])
+def add_pigeon():
+    data = request.json
+    name = data.get('name')
+    speed = data.get('speed')
+    stamina = data.get('stamina')
+    db.connect()
+    if db.add_pigeon(name, speed, stamina):
+        db.close()
+        return jsonify({'status': 'success'}), 201
+    else:
+        db.close()
+        return jsonify({'error': 'Pigeon with this name already exists'}), 400
+    
+
+
 @app.route('/api/get-pigeons', methods=['GET'])
 def get_pigeons():
     db.connect()

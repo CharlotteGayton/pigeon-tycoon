@@ -30,6 +30,8 @@ import axios from 'axios';
 function App() {
     const [gameData, setGameData] = useState(null);
     const [pigeons, setPigeons] = useState([]);
+    const [newPigeon, setNewPigeon] = useState({ name: '', speed: '', stamina: '' });
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         axios.get('http://127.0.0.1:5000/api/game-data')
@@ -62,12 +64,36 @@ function App() {
             });
     };
 
+    const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setNewPigeon(prevState => ({
+          ...prevState,
+          [name]: value
+      }));
+  };
+
+    const addPigeon = () => {
+      axios.post('http://127.0.0.1:5000/api/add-pigeon', newPigeon)
+          .then(response => {
+              // Refresh pigeon list
+              axios.get('http://127.0.0.1:5000/api/get-pigeons')
+                  .then(response => {
+                      setPigeons(response.data);
+                      setNewPigeon({ name: '', speed: '', stamina: '' }); // Clear form
+                      setError(null); // Clear any previous errors
+                  });
+          })
+          .catch(error => {
+              setError(error.response?.data?.error || 'There was an error adding the pigeon');
+          });
+  };
+
     return (
       <div>
           <h1>Pigeon List</h1>
-          {pigeons.length === 0 ? (
-          <p>No pigeons available.</p>
-      ) : (
+          {/* {pigeons.length === 0 ? (
+          <p>No pigeons available.</p> */}
+      {/* ) : ( */}
           <ul>
               {pigeons.map(pigeon => (
                   <li key={pigeon.id}>
@@ -75,7 +101,46 @@ function App() {
                   </li>
               ))}
           </ul>
-      )}
+
+          <h2>Add a New Pigeon</h2>
+          <form onSubmit={(e) => { e.preventDefault(); addPigeon(); }}>
+              <div>
+                  <label>Name:
+                      <input
+                          type="text"
+                          name="name"
+                          value={newPigeon.name}
+                          onChange={handleInputChange}
+                          required
+                      />
+                  </label>
+              </div>
+              <div>
+                  <label>Speed:
+                      <input
+                          type="number"
+                          name="speed"
+                          value={newPigeon.speed}
+                          onChange={handleInputChange}
+                          required
+                      />
+                  </label>
+              </div>
+              <div>
+                  <label>Stamina:
+                      <input
+                          type="number"
+                          name="stamina"
+                          value={newPigeon.stamina}
+                          onChange={handleInputChange}
+                          required
+                      />
+                  </label>
+              </div>
+              <button type="submit">Add Pigeon</button>
+          </form>
+          
+          {error && <p style={{ color: 'red' }}>{error}</p>}
       </div>
   );
 }

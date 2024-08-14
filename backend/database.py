@@ -1,5 +1,5 @@
 import sqlite3
-import jsonify
+from flask import jsonify
 
 class Database:
 
@@ -88,7 +88,8 @@ class Database:
         try:
             self.execute_query('INSERT INTO pigeons (name, speed, stamina) VALUES (?, ?, ?)', (name, speed, stamina))
         except sqlite3.IntegrityError:
-            return jsonify({'error': 'Pigeon with this name already exists'}), 400
+            return False
+        return True
 
     def assign_pigeon_to_enclosure(self, pigeon_id, enclosure_id):
         self.execute_query('INSERT INTO pigeon_enclosures (pigeon_id, enclosure_id) VALUES (?, ?)', (pigeon_id, enclosure_id))
