@@ -32,6 +32,8 @@ function App() {
     const [pigeons, setPigeons] = useState([]);
     const [newPigeon, setNewPigeon] = useState({ name: '', speed: '', stamina: '' });
     const [error, setError] = useState(null);
+    const [pigeonsForSale, setPigeonsForSale] = useState([]);
+    const [currentBalance, setCurrentBalance] = useState(0);
 
     useEffect(() => {
         axios.get('http://127.0.0.1:5000/api/game-data')
@@ -71,6 +73,26 @@ function App() {
           [name]: value
       }));
   };
+
+    useEffect(() => {
+      axios.get('http://127.0.0.1:5000/api/get-pigeons-for-sale')
+          .then(response => {
+              setPigeonsForSale(response.data);
+          })
+          .catch(error => {
+              console.error('There was an error fetching the pigeons for sale!', error);
+          });
+        }, []); 
+
+    useEffect(() => {
+      axios.get('http://127.0.0.1:5000/api/get-balance')
+          .then(response => {
+              setCurrentBalance(response.data);
+          })
+          .catch(error => {
+              console.error('There was an error fetching the pigeons for sale!', error);
+          });
+        }, []); 
 
     const addPigeon = () => {
       axios.post('http://127.0.0.1:5000/api/add-pigeon', newPigeon)
@@ -141,6 +163,14 @@ function App() {
           </form>
           
           {error && <p style={{ color: 'red' }}>{error}</p>}
+          <ul>
+              {pigeonsForSale.map(pigeon => (
+                  <li key={pigeon.id}>
+                      Name: {pigeon.name}, Speed: {pigeon.speed}, Stamina: {pigeon.stamina}
+                  </li>
+              ))}
+          </ul>
+          <p>Current balance: {currentBalance.balance}</p>
       </div>
   );
 }

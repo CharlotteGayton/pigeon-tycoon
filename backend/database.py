@@ -1,5 +1,7 @@
 import sqlite3
 from flask import jsonify
+import json
+import random
 
 class Database:
 
@@ -7,6 +9,8 @@ class Database:
         self.connection = None
         self.cursor = None
         self.db_name = db_name
+        with open('pigeon_names.py', 'r') as file:
+            self.pigeon_names = json.load(file)['pigeon_names']
 
     def connect(self):
         self.connection = sqlite3.connect(self.db_name)
@@ -36,7 +40,6 @@ class Database:
         return self.execute_query(query)
     
     def create_tables(self):
-        """Create tables if they do not exist."""
         self.execute_query('''
             CREATE TABLE IF NOT EXISTS enclosures (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -67,14 +70,15 @@ class Database:
         self.execute_query('''
             CREATE TABLE IF NOT EXISTS finances (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                balance INTEGER
+                balance REAL DEFAULT 0,
+                income REAL DEFAULT 0
             )
         ''')
 
         self.execute_query('''
             CREATE TABLE IF NOT EXISTS pigeon_store (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                pigeon_id INTEGER,
+                name TEXT NOT NULL UNIQUE,
                 price INTEGER,
                 speed INTEGER,
                 stamina INTEGER
@@ -107,3 +111,47 @@ class Database:
     
     def get_pigeons(self):
         return self.fetch_query('SELECT * FROM pigeons')
+    
+    def create_pigeon_for_sale(self):
+        if not self.pigeon_names:
+            raise ValueError("No more unique pigeon names available.")
+    
+        while True:
+            name = random.choice(self.pigeon_names)
+            
+            # Check if the name already exists in the pigeon_store
+            existing_pigeon = self.fetch_query('SELECT * FROM pigeon_store WHERE name = ?', (name,))
+            if not existing_pigeon:
+                break
+            else:
+                # If the name exists, remove it from the list and try again
+                self.pigeon_names.remove(name)
+                if not self.pigeon_names:
+                    raise ValueError("No more unique pigeon names available.")
+
+        self.pigeon_names.remove(name)
+        speed = random.randint(5, 20)
+        stamina = random.randint(1, 10)
+        price = random.randint(50, 200)
+        
+        self.execute_query('INSERT INTO pigeon_store (name, price, speed, stamina) VALUES (?, ?, ?, ?)', 
+                        (name, price, speed, stamina))
+        
+    def get_pigeons_for_sale(self):
+        return self.fetch_query('SELECT * FROM pigeon_store')
+    
+    def set_income(self, income):
+        self.execute_query('UPDATE finances SET income = ?', (income,))
+
+    def get_income(self):
+        return self.fetch_query('SELECT income FROM finances')
+
+    def update_balance(self):
+        income = self.get_income()[0][0]
+        self.execute_query('UPDATE finances SET balance = balance + ?', (income,))
+
+    def get_balance(self):
+        return self.fetch_query('SELECT balance FROM finances')
+    
+    def set_balance(self, balance):
+        self.execute_query('UPDATE finances SET balance = ?', (balance,))
