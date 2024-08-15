@@ -7,191 +7,113 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #589bff;
+  min-height: 5vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-family: 'Chelsea Market';
+  font-size: calc(0px + 2vmin);
   color: white;
+}
+
+.subtitle{
+  font-family: 'Chelsea Market';
+  font-size: 2em;
+  color: white;
+  margin-bottom: 10px;
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-/* 
-.navigation {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-end;
-
-  list-style: none;
-  margin: 0;
-  background: deepskyblue;
+body{
+  font-family: 'Chelsea Market';
 }
 
-.navigation a {
-  text-decoration: none;
-  display: block;
-  padding: 1em;
+.padding-container {
+    padding: 10px; /* External padding */
+    background-color: #a658ff; /* Different color for the external padding (e.g., gold) */
+    border-radius: 30px; /* Makes sure the padding container has slightly more radius for smooth appearance */
+    box-sizing: border-box;
+}
+
+.curved-box {
+  background-color: #589bff;
+  padding: 20px; /* Internal padding inside the box */
+  border-radius: 25px; /* Curved corners */
+  width: 100%;
+  /* max-width: 1200px; Maximum width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
   color: white;
+  box-sizing: border-box;
 }
 
-.navigation a:hover {
-  background: dodgerblue;
-}
-
-@media all and (max-width: 800px) {
-  .navigation {
-    justify-content: space-around;
-  }
-}
-
-@media all and (max-width: 600px) {
-  .navigation {
-    flex-flow: column wrap;
-    padding: 0;
-  }
-  .navigation a { 
-    text-align: center; 
-    padding: 10px;
-    border-top: 1px solid rgba(255, 255, 255,0.3); 
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
-  }
-  .navigation li:last-of-type a {
-    border-bottom: none;
-  }
-}
-
-.wrapper {
-  display: flex;  
-  flex-flow: row wrap;
-  font-weight: bold;
-  text-align: center; 
-}
-
-.wrapper > * {
-  padding: 10px;
-  flex: 1 100%;
-}
-
-.enclosure {
-  background: deepskyblue;
-}
-
-.stocks {
-  background: dodgerblue;
-}
-
-.market {
-  background: deepskyblue;
-}
-
-@media all and (min-width: 600px) {
-  .aside { flex: 1 0 0; }
-}
-
-@media all and (min-width: 800px) {
-  .enclosure    { flex: 3 0px; }
-  .stocks { order: 1; } 
-  .market { order: 2; }
-}
-
-body {
-  padding: 2em; 
-}
-
-.flex-container {
+.container {
   display: flex;
-  background-color: DodgerBlue;
+  justify-content: space-between;
+  padding: 0px;
 }
 
-.flex-container > div {
-  background-color: #f1f1f1;
+.sub-column-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px;
+}
+
+.page-break {
+  margin-left: -20px; /* Negative margin to extend beyond padding */
+  margin-right: -20px; /* Negative margin to extend beyond padding */
+  width: calc(100% + 40px); /* Width to cover container width + padding */
+  height: 7px; /* Thickness of the line */
+  background: white; /* Color of the line */
+}
+
+.column {
+  background-color: #589bff;
+  padding: 0px;
   margin: 10px;
-  padding: 20px;
-  font-size: 30px;
-} */
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #87CEEB;
-}
-
-.app {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
-
-.header {
-  background-color: #f0f0f0;
-  padding: 10px;
-  width: 100%;
-  text-align: center;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-
-.balance-income {
-  display: flex;
-  justify-content: space-between;
-  width: 50%;
-  margin-bottom: 20px;
-}
-
-.balance, .income {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 10px;
-  width: 48%;
-  text-align: center;
-}
-
-.main-content {
-  display: flex;
-  width: 100%;
-}
-
-.enclosures {
-  flex: 2;
-  background-color: #4CAF50;
-  padding: 20px;
-  border-radius: 10px;
-  margin-right: 20px;
-  height: 400px;
-}
-
-.right-sidebar {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 400px;
+  text-align: center;
+  font-family: 'Chelsea Market';
 }
 
-.stocks, .market {
-  background-color: #f0f0f0;
+/* Media query for screens less than 768px wide */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .column {
+    margin: 5px 0;
+  }
+  .curved-box {
+    padding: 20px;
+}
+}
+
+.invisible-break {
+  margin-top: 30px; /* Adjust this value to set the horizontal spacing */
+}
+
+.for-sale-box{
+  background-color: #8A80AB;
   padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  border-radius: 25px;
+  width: 100%;
+  color: white;
+  box-sizing: border-box;
+  border: 2px solid white;
+}
+
+.enclosure-box{
+  background-color: #39C5AC;
+  padding: 20px;
+  border-radius: 25px;
+  width: 100%;
+  color: white;
+  box-sizing: border-box;
+  border: 2px solid white;
 }

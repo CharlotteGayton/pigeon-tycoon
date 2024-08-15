@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: "Chelsea Market";
+  src: local("ChelseaMarket"),
+    url("./chelsea-market/ChelseaMarket-Regular.ttf") format("truetype");
+}
