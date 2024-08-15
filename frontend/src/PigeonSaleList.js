@@ -18,8 +18,8 @@ const PigeonSaleList = ({ pigeons = [] }) => {
             body: JSON.stringify(payload),
         })
         .then(response => {
-            if (!response.status == 200) {
-                if (response.error == 400) {
+            if (!response.status === 200) {
+                if (response.error === 400) {
                     throw new Error('You do not have enough money to buy this pigeon');
                 }
                 else{
