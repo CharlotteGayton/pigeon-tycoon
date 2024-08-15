@@ -84,7 +84,7 @@ def get_pigeons_for_sale():
     pigeons = db.get_pigeons_for_sale()
     print(pigeons)
     db.close()
-    pigeon_list = [{'id': row[0], 'name': row[1], 'speed': row[2], 'stamina': row[3]} for row in pigeons]
+    pigeon_list = [{'id': row[0], 'name': row[1], 'price': row[2], 'stamina': row[3], 'speed': row[4]} for row in pigeons]
     print(pigeon_list)
     return jsonify(pigeon_list)
 
@@ -111,6 +111,19 @@ def get_balance():
     balance = db.get_balance()
     db.close()
     return jsonify({'balance': balance[0][0]})
+
+@app.route('/api/buy-pigeon', methods=['POST'])
+def buy_pigeon():
+    db = Database('pigeon_tycoon.db')
+    data = request.json
+    pigeon_id = data.get('pigeon_id')
+    db.connect()
+    success = db.buy_pigeon(pigeon_id)
+    db.close()
+    if success:
+        return jsonify({'status': 'success'}), 200
+    else:
+        return jsonify({'error': 'Insufficient balance'}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
