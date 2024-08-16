@@ -7,12 +7,14 @@ import CurrentBalance from './CurrentBalance';
 import CurrentIncome from './Income';
 import useFetch from './UseFetch';
 import graph from './assets/image.png';
+import usePigeonsForSale from './UsePigeonsForSale';
+import usePigeonsEnclosure from './UsePigeonsEnclosure'; 
 
 function App() {
-    const {data: pigeons, error:pigeonsError } = useFetch('http://127.0.0.1:5000/api/get-pigeons');
-    const {data: pigeonsForSale, error:pigeonsForSaleError } = useFetch('http://127.0.0.1:5000/api/get-pigeons-for-sale');
-    const {data: initialBalance, error:currentBalanceError } = useFetch('http://127.0.0.1:5000/api/get-balance');
-    const {data: currentIncome, error:currentIncomeError } = useFetch('http://127.0.0.1:5000/api/get-income');
+    const { pigeonsEnclosure, error:pigeonsError, refreshPigeonsEnclosure } = usePigeonsEnclosure();
+    const { pigeonsForSale, error: pigeonsForSaleError, refreshPigeonsForSale } = usePigeonsForSale();
+    const { data: initialBalance, error:currentBalanceError } = useFetch('http://127.0.0.1:5000/api/get-balance');
+    const { data: currentIncome, error:currentIncomeError } = useFetch('http://127.0.0.1:5000/api/get-income');
 
     const [currentBalance, setCurrentBalance] = useState(initialBalance);
 
@@ -32,7 +34,6 @@ function App() {
         // Cleanup on unmount
         return () => clearInterval(interval);
     }, []);
-
 
     return (   
         <div className="padding-container">
@@ -84,7 +85,7 @@ function App() {
                             <div class="invisible-break"></div>
                             <div class="subtitle">Enclosures</div>
                             <div class="enclosure-box">
-                                <PigeonEnclosure pigeons={pigeons} />
+                                <PigeonEnclosure pigeons={pigeonsEnclosure}/>
                             </div>
                         </div>
                         <div class="page-column">
@@ -94,7 +95,7 @@ function App() {
                             <div class="invisible-break"></div>
                             <div class="subtitle">Market</div>
                             <div class="for-sale-box">
-                                <PigeonSaleList pigeons={pigeonsForSale} />
+                                <PigeonSaleList pigeons={pigeonsForSale} refreshPigeonsSale={refreshPigeonsForSale} refreshPigeonsEnclosure={refreshPigeonsEnclosure} />
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-const PigeonSaleList = ({ pigeons = [] }) => {
+const PigeonSaleList = ({ pigeons = [], refreshPigeonsSale, refreshPigeonsEnclosure }) => {
 
     const buyPigeon = (pigeon_name, pigeon_id) => {
         const url = 'http://127.0.0.1:5000/api/buy-pigeon';
@@ -20,6 +20,8 @@ const PigeonSaleList = ({ pigeons = [] }) => {
         .then(response => {
             if (response.status === 200) {
                 alert(`${pigeon_name} has been bought!`);
+                refreshPigeonsSale();
+                refreshPigeonsEnclosure();
             }
             else if (response.status === 400) {
                 throw new Error('You do not have enough money to buy this pigeon');
