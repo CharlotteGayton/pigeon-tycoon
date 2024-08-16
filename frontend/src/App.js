@@ -11,8 +11,30 @@ import graph from './assets/image.png';
 function App() {
     const {data: pigeons, error:pigeonsError } = useFetch('http://127.0.0.1:5000/api/get-pigeons');
     const {data: pigeonsForSale, error:pigeonsForSaleError } = useFetch('http://127.0.0.1:5000/api/get-pigeons-for-sale');
-    const {data: currentBalance, error:currentBalanceError } = useFetch('http://127.0.0.1:5000/api/get-balance');
+    const {data: initialBalance, error:currentBalanceError } = useFetch('http://127.0.0.1:5000/api/get-balance');
     const {data: currentIncome, error:currentIncomeError } = useFetch('http://127.0.0.1:5000/api/get-income');
+
+
+
+    const [currentBalance, setCurrentBalance] = useState(initialBalance);
+
+    useEffect(() => {
+        const fetchBalance = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/api/get-balance');
+                setCurrentBalance(response.data);
+            } catch (error) {
+                console.error('Error fetching balance:', error);
+            }
+        };
+        const MINUTE_MS = 1000;
+
+        const interval = setInterval(fetchBalance, MINUTE_MS);
+
+        // Cleanup on unmount
+        return () => clearInterval(interval);
+    }, []);
+
 
     return (   
         <div className="padding-container">

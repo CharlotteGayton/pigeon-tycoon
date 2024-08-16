@@ -23,7 +23,7 @@ def initialize_finances():
     db.connect()
     existing_finances = db.fetch_query('SELECT * FROM finances')
     if not existing_finances:
-        db.execute_query('INSERT INTO finances (income, balance) VALUES (?, ?)', (0.001, 0))
+        db.execute_query('INSERT INTO finances (income, balance) VALUES (?, ?)', (1, 0))
     db.close()
 
 def periodically_add_pigeon():
