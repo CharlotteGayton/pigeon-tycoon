@@ -14,8 +14,6 @@ function App() {
     const {data: initialBalance, error:currentBalanceError } = useFetch('http://127.0.0.1:5000/api/get-balance');
     const {data: currentIncome, error:currentIncomeError } = useFetch('http://127.0.0.1:5000/api/get-income');
 
-
-
     const [currentBalance, setCurrentBalance] = useState(initialBalance);
 
     useEffect(() => {
