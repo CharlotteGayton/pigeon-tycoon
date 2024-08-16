@@ -1,0 +1,62 @@
+{
+    "1": {
+        "name": "Super Slow",
+        "low-range": 1,
+        "high-range": 10,
+        "price-multiplier": 10
+    },
+    "2": {
+        "name": "Slow",
+        "low-range": 11,
+        "high-range": 30,
+        "price-multiplier": 20
+    },
+    "3": {
+        "name": "Medium",
+        "low-range": 31,
+        "high-range": 50,
+        "price-multiplier": 30
+    },
+    "4": {
+        "name": "Fast",
+        "low-range": 51,
+        "high-range": 60,
+        "price-multiplier": 40
+    },
+    "5": {
+        "name": "Super Fast",
+        "low-range": 61,
+        "high-range": 70,
+        "price-multiplier": 50
+    },
+    "6": {
+        "name": "Speedy",
+        "low-range": 71,
+        "high-range": 80,
+        "price-multiplier": 60
+    },
+    "7": {
+        "name": "Super Speedy",
+        "low-range": 81,
+        "high-range": 100,
+        "price-multiplier": 70
+    },
+    "8": {
+        "name": "Olympic",
+        "low-range": 101,
+        "high-range": 150,
+        "price-multiplier": 80
+    },
+    "9": {
+        "name": "Lightning",
+        "low-range": 151,
+        "high-range": 200,
+        "price-multiplier": 90
+    },
+    "10": {
+        "name": "God",
+        "low-range": 201,
+        "high-range": 300,
+        "price-multiplier": 100
+    }
+}

@@ -1,0 +1,79 @@
+{
+    "1": {
+        "name": "Exhausted",
+        "low-range": 1,
+        "high-range": 10,
+        "earnings-multiplier": 2,
+        "price-multiplier": 1
+    },
+    "2": {
+        "name": "Drained",
+        "low-range": 11,
+        "high-range": 20,
+        "earnings-multiplier": 3,
+        "price-multiplier": 10
+    },
+    "3": {
+        "name": "Sleepy",
+        "low-range": 21,
+        "high-range": 30,
+        "earnings-multiplier": 4,
+        "price-multiplier": 100
+    },
+    "4": {
+        "name": "Worn out",
+        "low-range": 31,
+        "high-range": 40,
+        "earnings-multiplier": 5,
+        "price-multiplier": 1000
+    },
+    "5": {
+        "name": "Tired",
+        "low-range": 41,
+        "high-range": 80,
+        "earnings-multiplier": 6,
+        "price-multiplier": 2000
+    },
+    "6": {
+        "name": "Low energy",
+        "low-range": 81,
+        "high-range": 110,
+        "earnings-multiplier": 7,
+        "price-multiplier": 3000
+    },
+    "7": {
+        "name": "Alert",
+        "low-range": 111,
+        "high-range": 180,
+        "earnings-multiplier": 8,
+        "price-multiplier": 4000
+    },
+    "8": {
+        "name": "Active",
+        "low-range": 181,
+        "high-range": 330,
+        "earnings-multiplier": 9,
+        "price-multiplier": 10000
+    },
+    "9": {
+        "name": "Energetic",
+        "low-range": 331,
+        "high-range": 660,
+        "earnings-multiplier": 10,
+        "price-multiplier": 15000
+    },
+    "10": {
+        "name": "Hyper",
+        "low-range": 661,
+        "high-range": 800,
+        "earnings-multiplier": 11,
+        "price-multiplier": 300000
+    },
+    "11": {
+        "name": "Invincible",
+        "low-range": 801,
+        "high-range": 1000,
+        "earnings-multiplier": 12,
+        "price-multiplier": 10000000
+    }
+}

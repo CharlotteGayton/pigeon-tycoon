@@ -53,7 +53,10 @@ class Database:
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL UNIQUE,
                 speed INTEGER,
-                stamina INTEGER
+                stamina INTEGER,
+                income REAL,
+                outgoings REAL,
+                value REAL
             )
         ''')
         
@@ -128,6 +131,13 @@ class Database:
                 self.pigeon_names.remove(name)
                 if not self.pigeon_names:
                     raise ValueError("No more unique pigeon names available.")
+                
+        with open('speed.json', 'r') as file:
+            speed = json.load(file)
+
+        num_of_existing_pigeons = self.fetch_query('SELECT COUNT(*) FROM pigeons')
+        # if num_of_existing_pigeons[0][0] >= 10:
+
 
         self.pigeon_names.remove(name)
         speed = random.randint(5, 20)
