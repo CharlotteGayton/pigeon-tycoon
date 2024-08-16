@@ -112,6 +112,14 @@ def get_balance():
     db.close()
     return jsonify({'balance': balance[0][0]})
 
+@app.route('/api/get-income', methods=['GET'])
+def get_income():
+    db = Database('pigeon_tycoon.db')
+    db.connect()
+    income = db.get_income()
+    db.close()
+    return jsonify({'income': income[0][0]})
+
 @app.route('/api/buy-pigeon', methods=['POST'])
 def buy_pigeon():
     db = Database('pigeon_tycoon.db')
@@ -119,10 +127,13 @@ def buy_pigeon():
     pigeon_id = data.get('pigeon_id')
     db.connect()
     success = db.buy_pigeon(pigeon_id)
+    print(success)
     db.close()
-    if success:
+    if success == True:
+        print('success')
         return jsonify({'status': 'success'}), 200
     else:
+        print('fail')
         return jsonify({'error': 'Insufficient balance'}), 400
 
 if __name__ == '__main__':

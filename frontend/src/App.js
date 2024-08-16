@@ -3,6 +3,8 @@ import axios from 'axios';
 import './App.css';
 import PigeonSaleList from './PigeonSaleList';
 import PigeonEnclosure from './PigeonEnclosure';
+import CurrentBalance from './CurrentBalance';
+import CurrentIncome from './Income';
 import useFetch from './UseFetch';
 import graph from './assets/image.png';
 
@@ -10,6 +12,7 @@ function App() {
     const {data: pigeons, error:pigeonsError } = useFetch('http://127.0.0.1:5000/api/get-pigeons');
     const {data: pigeonsForSale, error:pigeonsForSaleError } = useFetch('http://127.0.0.1:5000/api/get-pigeons-for-sale');
     const {data: currentBalance, error:currentBalanceError } = useFetch('http://127.0.0.1:5000/api/get-balance');
+    const {data: currentIncome, error:currentIncomeError } = useFetch('http://127.0.0.1:5000/api/get-income');
 
     return (   
         <div className="padding-container">
@@ -26,14 +29,14 @@ function App() {
                                     <div class="invisible-break"></div>
                                     <div class="subtitle">Balance</div>
                                     <div class="info-box">
-                                        <p>£20</p>
+                                        <CurrentBalance balance={currentBalance}/>
                                     </div>
                                 </div>
                                 <div class="column">
                                     <div class="invisible-break"></div>
                                     <div class="subtitle">Income</div>
                                     <div class="info-box">
-                                        <p>£0.0002/s</p>
+                                        <CurrentIncome income={currentIncome}/>
                                     </div>
                                 </div>
                                 {/* <div class="column">

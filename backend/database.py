@@ -161,9 +161,11 @@ class Database:
         if pigeon:
             price = pigeon[0][2]
             balance = self.get_balance()[0][0]
-            if balance >= price:
+            print(type(balance), type(price))
+            if balance >= float(price):
                 self.execute_query('DELETE FROM pigeon_store WHERE id = ?', (pigeon_id,))
                 self.execute_query('UPDATE finances SET balance = balance - ?', (price,))
                 self.add_pigeon(pigeon[0][1], pigeon[0][3], pigeon[0][4])
                 return True
+            return False
         return False

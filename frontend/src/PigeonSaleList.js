@@ -18,18 +18,16 @@ const PigeonSaleList = ({ pigeons = [] }) => {
             body: JSON.stringify(payload),
         })
         .then(response => {
-            if (!response.status === 200) {
-                if (response.error === 400) {
-                    throw new Error('You do not have enough money to buy this pigeon');
-                }
-                else{
+            if (response.status === 200) {
+                alert(`${pigeon_name} has been bought!`);
+            }
+            else if (response.status === 400) {
+                throw new Error('You do not have enough money to buy this pigeon');
+            }
+            else{
                 throw new Error('Failed to buy pigeon');
-                }
             }
             return response.json();
-        })
-        .then(data => {
-            alert(`${pigeon_name} has been bought!`);
         })
         .catch(error => {
             alert('Error: ' + error.message);
